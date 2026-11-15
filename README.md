@@ -1,5 +1,11 @@
 # MyPortfolio Mobile
 
+![Flutter](https://img.shields.io/badge/Flutter-3.50-02569B?logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.14-0175C2?logo=dart&logoColor=white)
+![flutter analyze](https://img.shields.io/badge/flutter%20analyze-passing-brightgreen)
+![tests](https://img.shields.io/badge/tests-2%20passing-brightgreen)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 Aplikasi Flutter sederhana untuk menampilkan portofolio pribadi. Proyek ini merupakan
 kelanjutan dari **Tutorial 08** dan tetap menggunakan repositori GitHub yang sama,
 terpisah dari repositori proyek Django.
@@ -25,6 +31,16 @@ serta tiga `ItemCard` aksi dengan warna berbeda dan `SnackBar` interaktif.
   `Kamu telah menekan tombol [Nama Tombol]!`.
 - `MyHomePage` berupa `StatelessWidget` karena data profil dan daftar menu bersifat tetap.
 - Widget test untuk memastikan profil, tombol, dan `SnackBar` tampil dengan benar.
+
+## Dokumentasi
+
+| Dokumen | Isi |
+| ------- | --- |
+| [`docs/weekly-progress.md`](docs/weekly-progress.md) | Progres pengembangan per minggu |
+| [`CHANGELOG.md`](CHANGELOG.md) | Riwayat rilis dan perubahan |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Panduan kontribusi dan konvensi commit |
+| [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md) | Keterbukaan penggunaan AI dan verifikasi manual |
+| [`LICENSE`](LICENSE) | Lisensi MIT |
 
 ## Prasyarat
 
@@ -92,11 +108,17 @@ flutter doctor
 ```text
 myportofolio_mobile/
 ├── lib/
-│   ├── main.dart        # Bootstrap aplikasi: runApp + MaterialApp
-│   └── menu.dart        # MyHomePage, InfoCard, ItemCard, ItemHomepage
+│   ├── main.dart              # Bootstrap aplikasi: runApp + MaterialApp
+│   └── menu.dart              # MyHomePage, InfoCard, ItemCard, ItemHomepage
 ├── test/
-│   └── widget_test.dart # Widget test halaman menu
-├── pubspec.yaml         # Dependensi (flutter, material_ui, cupertino_icons)
+│   └── widget_test.dart       # Widget test halaman menu
+├── docs/
+│   └── weekly-progress.md     # Catatan progres mingguan
+├── AI_DISCLOSURE.md           # Keterbukaan penggunaan AI
+├── CHANGELOG.md               # Riwayat perubahan
+├── CONTRIBUTING.md            # Panduan kontribusi
+├── LICENSE                    # Lisensi MIT
+├── pubspec.yaml               # Dependensi (flutter, material_ui, cupertino_icons)
 └── README.md
 ```
 
@@ -287,3 +309,35 @@ Pada proyek ini, mengubah warna `ItemCard` atau teks `SnackBar` cukup dengan hot
 reload. Namun saat menambahkan paket `material_ui` ke `pubspec.yaml`, diperlukan
 `flutter pub get` lalu **hot restart atau full restart** agar dependensi baru dan
 import yang berubah benar-benar diterapkan.
+
+---
+
+## Progres Mingguan
+
+Riwayat pekerjaan per minggu, termasuk aktivitas, commit terkait, kendala, dan
+pelajaran, tersedia di [`docs/weekly-progress.md`](docs/weekly-progress.md).
+Dokumen tersebut diperbarui setiap minggu agar proses pengembangan tetap transparan.
+
+## Kontribusi
+
+Kontribusi terbuka untuk siapa saja. Baca [`CONTRIBUTING.md`](CONTRIBUTING.md) untuk
+alur kerja, konvensi commit, standar kode, dan checklist Pull Request.
+
+Ringkasan sebelum mengirim perubahan:
+
+```bash
+dart format lib test
+flutter analyze
+flutter test
+```
+
+## AI Disclosure
+
+Proyek ini dikembangkan dengan bantuan AI. Analisis kritis mengenai keterbatasan AI
+dan perbaikan manual yang dilakukan didokumentasikan secara terbuka di
+[`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+
