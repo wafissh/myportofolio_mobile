@@ -312,11 +312,7 @@ import yang berubah benar-benar diterapkan.
 
 ---
 
-## Progres Mingguan
 
-Riwayat pekerjaan per minggu, termasuk aktivitas, commit terkait, kendala, dan
-pelajaran, tersedia di [`docs/weekly-progress.md`](docs/weekly-progress.md).
-Dokumen tersebut diperbarui setiap minggu agar proses pengembangan tetap transparan.
 
 ## Kontribusi
 
@@ -333,9 +329,8 @@ flutter test
 
 ## AI Disclosure
 
-Proyek ini dikembangkan dengan bantuan AI. Analisis kritis mengenai keterbatasan AI
-dan perbaikan manual yang dilakukan didokumentasikan secara terbuka di
-[`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+Proyek ini dikembangkan dengan bantuan AI, AI Berperan sebagai alat bantu pikir dan membantu saya ketika terdapat masalah dan menjelaskan cara step by stepnya juga
+AI Digunakan utnuk membentuk Readme.MD yang berkualitas seperti opensource, AI juga saya gunakan untuk membantu mendesain hasil jawaban dari tugas reflektif agar lebih bagus tampilannya di readme.md
 
 ## Lisensi
 
