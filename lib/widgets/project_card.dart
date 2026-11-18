@@ -29,9 +29,7 @@ class ItemCard extends StatelessWidget {
           if (item.name == "Tambah Proyek") {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const ProjectFormPage(),
-              ),
+              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
             );
           }
         },
