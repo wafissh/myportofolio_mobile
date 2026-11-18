@@ -3,16 +3,16 @@
 ![Flutter](https://img.shields.io/badge/Flutter-3.50-02569B?logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-3.14-0175C2?logo=dart&logoColor=white)
 ![flutter analyze](https://img.shields.io/badge/flutter%20analyze-passing-brightgreen)
-![tests](https://img.shields.io/badge/tests-2%20passing-brightgreen)
+![tests](https://img.shields.io/badge/tests-5%20passing-brightgreen)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Aplikasi Flutter sederhana untuk menampilkan portofolio pribadi. Proyek ini merupakan
 kelanjutan dari **Tutorial 08** dan tetap menggunakan repositori GitHub yang sama,
 terpisah dari repositori proyek Django.
 
-Halaman utama memisahkan kode widget ke `lib/menu.dart`, mengubah `MyHomePage`
-menjadi `StatelessWidget`, menampilkan tiga `InfoCard` berisi identitas pemilik,
-serta tiga `ItemCard` aksi dengan warna berbeda dan `SnackBar` interaktif.
+Pada **Tutorial 09**, aplikasi dilengkapi drawer menu, navigasi antarhalaman, serta
+form tambah proyek dengan validasi input. Kode halaman dipisahkan ke direktori
+`lib/screens/`, sedangkan widget yang dapat digunakan ulang berada di `lib/widgets/`.
 
 ## Identitas Pemilik
 
@@ -29,8 +29,14 @@ serta tiga `ItemCard` aksi dengan warna berbeda dan `SnackBar` interaktif.
 - Setiap `ItemCard` memiliki warna latar unik (biru, hijau, merah) agar kontras.
 - Menekan `ItemCard` menampilkan `SnackBar` dengan pesan
   `Kamu telah menekan tombol [Nama Tombol]!`.
+- Tombol **Tambah Proyek** membuka `ProjectFormPage` melalui `Navigator.push`.
+- Drawer menu (`LeftDrawer`) berisi header aplikasi, navigasi **Home** dengan
+  `Navigator.pushReplacement`, dan navigasi **Add Project**.
+- Form tambah proyek memiliki field nama, deskripsi, kategori (`DropdownButtonFormField`),
+  teknologi, dan tautan dengan validasi input.
+- Tombol **Save** memvalidasi form lalu menampilkan ringkasan data melalui `AlertDialog`.
 - `MyHomePage` berupa `StatelessWidget` karena data profil dan daftar menu bersifat tetap.
-- Widget test untuk memastikan profil, tombol, dan `SnackBar` tampil dengan benar.
+- Widget test untuk memastikan profil, tombol, `SnackBar`, navigasi, dan form berjalan benar.
 
 ## Dokumentasi
 
@@ -108,10 +114,15 @@ flutter doctor
 ```text
 myportofolio_mobile/
 ├── lib/
-│   ├── main.dart              # Bootstrap aplikasi: runApp + MaterialApp
-│   └── menu.dart              # MyHomePage, InfoCard, ItemCard, ItemHomepage
+│   ├── screens/
+│   │   ├── menu.dart          # MyHomePage, InfoCard, ItemHomepage
+│   │   └── project_form.dart  # ProjectFormPage dan form tambah proyek
+│   ├── widgets/
+│   │   ├── left_drawer.dart   # Drawer menu navigasi
+│   │   └── project_card.dart  # ItemCard untuk tombol aksi
+│   └── main.dart              # Bootstrap aplikasi: runApp + MaterialApp
 ├── test/
-│   └── widget_test.dart       # Widget test halaman menu
+│   └── widget_test.dart       # Widget test menu, navigasi, dan form
 ├── docs/
 │   └── weekly-progress.md     # Catatan progres mingguan
 ├── AI_DISCLOSURE.md           # Keterbukaan penggunaan AI
@@ -128,7 +139,9 @@ myportofolio_mobile/
   `package:material_ui/material_ui.dart`. Proyek ini memakai `material_ui` agar
   `flutter analyze` bersih tanpa peringatan.
 - `main.dart` hanya bertugas menjalankan aplikasi dan menyiapkan `MaterialApp`,
-  sedangkan seluruh widget halaman utama berada di `menu.dart`.
+  sedangkan halaman berada di `lib/screens/` dan widget bersama di `lib/widgets/`.
+- Halaman form memakai `GlobalKey<FormState>` untuk validasi seluruh field sebelum
+  menampilkan ringkasan data pada `AlertDialog`.
 - Warna setiap tombol disimpan pada model `ItemHomepage` sehingga `ItemCard`
   cukup membaca `item.color`.
 
