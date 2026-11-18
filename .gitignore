@@ -1,5 +1,6 @@
 # Miscellaneous
 tutorial.md
+android/build/
 *.class
 *.log
 *.pyc
