@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 
+import 'package:myportofolio_mobile/utils/validators.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class ProjectFormPage extends StatefulWidget {
@@ -25,35 +26,57 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
     'Other',
   ];
 
-  void _resetForm() {
-    _formKey.currentState!.reset();
-    setState(() {
-      _projectName = "";
-      _description = "";
-      _category = "Web Development";
-      _technologies = "";
-      _projectLink = "";
-    });
+  void _showSummary(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: const Text('Proyek berhasil ditambahkan!'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Nama Proyek: $_projectName'),
+                Text('Deskripsi: $_description'),
+                Text('Kategori: $_category'),
+                Text('Teknologi: $_technologies'),
+                Text(
+                  'Tautan: ${_projectLink.trim().isEmpty ? '-' : _projectLink}',
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Add Project Form')),
-        backgroundColor: Colors.indigo,
+        title: const Text('Add Project Form'),
+        backgroundColor: primaryColor,
         foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
                   decoration: InputDecoration(
                     hintText: "Nama Proyek",
                     labelText: "Nama Proyek",
@@ -62,21 +85,17 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                     ),
                   ),
                   onChanged: (String? value) {
-                    setState(() {
-                      _projectName = value!;
-                    });
+                    _projectName = value ?? "";
                   },
-                  validator: (String? value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Nama proyek tidak boleh kosong!";
-                    }
-                    return null;
-                  },
+                  validator: (String? value) => validateRequired(
+                    value,
+                    label: "Nama proyek",
+                    minLength: 3,
+                    maxLength: 100,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+                const SizedBox(height: 16.0),
+                TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
                     hintText: "Deskripsi Proyek",
@@ -86,21 +105,17 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                     ),
                   ),
                   onChanged: (String? value) {
-                    setState(() {
-                      _description = value!;
-                    });
+                    _description = value ?? "";
                   },
-                  validator: (String? value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Deskripsi proyek tidak boleh kosong!";
-                    }
-                    return null;
-                  },
+                  validator: (String? value) => validateRequired(
+                    value,
+                    label: "Deskripsi proyek",
+                    minLength: 10,
+                    maxLength: 500,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownButtonFormField<String>(
+                const SizedBox(height: 16.0),
+                DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     labelText: "Kategori Proyek",
                     border: OutlineInputBorder(
@@ -118,14 +133,18 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                       .toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      _category = newValue!;
+                      _category = newValue ?? "Web Development";
                     });
                   },
+                  validator: (String? value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Kategori proyek tidak boleh kosong!";
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+                const SizedBox(height: 16.0),
+                TextFormField(
                   decoration: InputDecoration(
                     hintText: "Contoh: Flutter, Django, Figma",
                     labelText: "Teknologi yang Digunakan",
@@ -134,78 +153,51 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                     ),
                   ),
                   onChanged: (String? value) {
-                    setState(() {
-                      _technologies = value!;
-                    });
+                    _technologies = value ?? "";
                   },
+                  validator: (String? value) => validateRequired(
+                    value,
+                    label: "Teknologi",
+                    minLength: 2,
+                    maxLength: 100,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
-                    hintText: "URL Proyek (opsional)",
+                    hintText: "https://contoh.com (opsional)",
                     labelText: "Tautan Proyek",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
-                    setState(() {
-                      _projectLink = value!;
-                    });
+                    _projectLink = value ?? "";
                   },
+                  validator: (String? value) =>
+                      validateOptionalUrl(value, label: "Tautan proyek"),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const SizedBox(height: 24.0),
+                SizedBox(
+                  width: double.infinity,
                   child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.indigo),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Proyek berhasil ditambahkan!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Nama Proyek: $_projectName'),
-                                    Text('Deskripsi: $_description'),
-                                    Text('Kategori: $_category'),
-                                    Text('Teknologi: $_technologies'),
-                                    Text('Tautan: $_projectLink'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _resetForm();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        _showSummary(context);
                       }
                     },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    child: const Text("Save"),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 16.0),
+              ],
+            ),
           ),
         ),
       ),
