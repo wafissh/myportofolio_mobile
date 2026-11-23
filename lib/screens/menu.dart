@@ -13,14 +13,13 @@ class MyHomePage extends StatelessWidget {
   final List<ItemHomepage> items = [
     ItemHomepage("Lihat Proyek", Icons.folder, Colors.blue.shade600),
     ItemHomepage("Tambah Proyek", Icons.add_circle, Colors.green.shade600),
+    ItemHomepage("Tambah Pendidikan", Icons.school, Colors.orange.shade700),
     ItemHomepage("Logout", Icons.logout, Colors.red.shade600),
   ];
 
   @override
   Widget build(BuildContext context) {
-    // Scaffold menyediakan struktur visual dasar halaman (AppBar, Body, SnackBar).
     return Scaffold(
-      // AppBar menampilkan bar bagian atas halaman aplikasi.
       appBar: AppBar(
         title: const Text(
           'MyPortfolio',
@@ -29,13 +28,11 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       drawer: const LeftDrawer(),
-      // Body halaman utama dengan padding di sekelilingnya.
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Baris horizontal untuk menampilkan 3 InfoCard secara sejajar.
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -44,39 +41,25 @@ class MyHomePage extends StatelessWidget {
                 InfoCard(title: 'Class', content: kelas),
               ],
             ),
-
             const SizedBox(height: 16.0),
-
-            // Bagian tengah: pesan sambutan dan kisi tombol menu portofolio.
-            Center(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Selamat datang di MyPortfolio Mobile!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-
-                  // GridView menampilkan kartu tombol dalam tata letak kisi 3 kolom.
-                  GridView.count(
-                    primary: true,
-                    padding: const EdgeInsets.all(20),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    crossAxisCount: 3,
-                    // shrinkWrap agar ukuran kisi menyesuaikan tinggi konten anak.
-                    shrinkWrap: true,
-                    children: items.map((ItemHomepage item) {
-                      return ItemCard(item);
-                    }).toList(),
-                  ),
-                ],
+            const Padding(
+              padding: EdgeInsets.only(top: 16.0),
+              child: Text(
+                'Selamat datang di MyPortfolio Mobile!',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               ),
+            ),
+            GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(20),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 3,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: items.map((ItemHomepage item) {
+                return ItemCard(item);
+              }).toList(),
             ),
           ],
         ),
@@ -86,7 +69,6 @@ class MyHomePage extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  // Kartu informasi yang menampilkan judul (title) dan isi (content).
   final String title;
   final String content;
 
@@ -95,13 +77,10 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // Memberikan efek bayangan kartu elevasi 2 unit.
       elevation: 2.0,
       child: Container(
-        // Menyesuaikan lebar kartu dengan proporsi layar (dibagi 3.5).
         width: MediaQuery.of(context).size.width / 3.5,
         padding: const EdgeInsets.all(16.0),
-        // Menyusun teks title dan content secara vertikal.
         child: Column(
           children: [
             Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
