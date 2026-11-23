@@ -12,7 +12,38 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/) dan
 - Navigasi ke halaman daftar dan form tambah portofolio.
 - Penyimpanan data portofolio secara lokal (misalnya `shared_preferences`) atau
   melalui API.
-- Menambahkan `ItemCard` keempat untuk bagian Education/Skills.
+- Menambahkan `ItemCard` kelima untuk bagian Skills.
+
+## [1.2.0] - 2026-11-23
+
+Rilis Tutorial 10: formulir pendidikan, validasi lanjutan, dan navigasi drawer.
+
+### Added
+
+- `EducationFormPage` pada `lib/screens/education_form.dart` untuk bagian portofolio
+  pendidikan: nama institusi, jenjang, jurusan, tanggal mulai/selesai, dan website.
+- Input tanggal memakai `showDatePicker`; tanggal selesai tidak boleh mendahului
+  tanggal mulai.
+- `lib/utils/validators.dart` berisi validasi wajib isi, batas panjang, dan format URL.
+- Kartu aksi **Tambah Pendidikan** di halaman utama dan opsi **Add Education** di drawer.
+- `AlertDialog` ringkasan pendidikan dengan tombol **OK** untuk kembali ke formulir.
+- Widget test untuk akses form dari kartu/drawer, validasi kosong, URL tidak valid,
+  ringkasan valid, dan alur Home.
+
+### Changed
+
+- Halaman utama dan form memakai `SingleChildScrollView` agar tetap dapat diakses pada
+  layar sempit atau saat papan ketik tampil.
+- `AppBar` dan header drawer memakai `Theme.of(context).colorScheme.primary` agar tema
+  konsisten di semua halaman.
+- Opsi **Home** di drawer memakai `Navigator.pushAndRemoveUntil` agar tumpukan route
+  dibersihkan.
+- Form proyek memakai validator bersama dan memeriksa format URL tautan.
+
+### Fixed
+
+- Memulihkan struktur `project_form.dart` yang sempat kehilangan daftar `children`.
+- Menghilangkan overflow tata letak halaman utama dan header drawer pada layar sempit.
 
 ## [1.1.0] - 2026-11-15
 
@@ -60,6 +91,7 @@ Rilis Tutorial 08: aplikasi portofolio mobile pertama.
 - `SnackBar` sederhana saat `ItemCard` ditekan.
 - Tema aplikasi melalui `MaterialApp` dan `ColorScheme.fromSeed`.
 
-[Unreleased]: https://github.com/wafissh/myportofolio_mobile/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/wafissh/myportofolio_mobile/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/wafissh/myportofolio_mobile/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/wafissh/myportofolio_mobile/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/wafissh/myportofolio_mobile/releases/tag/v1.0.0
