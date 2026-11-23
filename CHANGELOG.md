@@ -16,7 +16,7 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/) dan
 
 ## [1.2.0] - 2026-11-23
 
-Rilis Tutorial 10: formulir pendidikan, validasi lanjutan, dan navigasi drawer.
+Rilis Tugas 09: formulir pendidikan, validasi lanjutan, dan navigasi drawer.
 
 ### Added
 
