@@ -100,6 +100,9 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
       if (!mounted) {
         return;
       }
+      setState(() {
+        _isSubmitting = false;
+      });
       await _showSuccessDialog(created);
     } on ApiException catch (error) {
       if (!mounted) {
@@ -115,13 +118,14 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
             content: Text('Sesi berakhir. Silakan login kembali.'),
           ),
         );
+        setState(() {
+          _isSubmitting = false;
+        });
         await ensureLoggedIn(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              'Gagal menambahkan proyek (${error.statusCode}).',
-            ),
+            content: Text('Gagal menambahkan proyek (${error.statusCode}).'),
           ),
         );
       }

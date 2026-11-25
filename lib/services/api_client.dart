@@ -75,8 +75,7 @@ class ApiClient {
     _ensureSuccess(response);
   }
 
-  String _decodeBody(http.Response response) =>
-      utf8.decode(response.bodyBytes);
+  String _decodeBody(http.Response response) => utf8.decode(response.bodyBytes);
 
   void _ensureSuccess(http.Response response) {
     if (response.statusCode >= 200 && response.statusCode < 300) {
