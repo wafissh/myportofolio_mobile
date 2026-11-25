@@ -1,26 +1,40 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:provider/provider.dart';
 
 import 'package:myportofolio_mobile/screens/menu.dart';
+import 'package:myportofolio_mobile/services/api_client.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp(apiClient: ApiClient()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({required this.apiClient, this.authState, super.key});
+
+  final ApiClient apiClient;
+  final AuthState? authState;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyPortfolio',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          secondary: Colors.amber[700],
+    return MultiProvider(
+      providers: [
+        Provider<ApiClient>.value(value: apiClient),
+        ChangeNotifierProvider<AuthState>(
+          create: (_) => authState ?? AuthState(apiClient),
         ),
-        useMaterial3: true,
+      ],
+      child: MaterialApp(
+        title: 'MyPortfolio',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.indigo,
+            secondary: Colors.amber[700],
+          ),
+          useMaterial3: true,
+        ),
+        home: MyHomePage(),
       ),
-      home: MyHomePage(),
     );
   }
 }
